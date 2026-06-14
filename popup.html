@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelBrief Info</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #09090b;
+      color: #f4f4f5;
+      margin: 0;
+      padding: 16px;
+      width: 280px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.025em;
+      background: linear-gradient(to right, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #2563eb;
+      color: white;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #1d4ed8;
+    }
+    .shortcuts {
+      border-top: 1px solid #27272a;
+      padding-top: 12px;
+    }
+    .shortcuts h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #71717a;
+      margin: 0 0 8px 0;
+      letter-spacing: 0.05em;
+    }
+    .shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .key {
+      font-family: monospace;
+      background-color: #18181b;
+      border: 1px solid #27272a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 10px;
+      color: #a1a1aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <svg width="18" height="18" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pb-grad" x1="68" y1="68" x2="444" y2="444" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3B82F6" />
+          <stop offset="100%" stop-color="#A855F7" />
+        </linearGradient>
+      </defs>
+      <path d="M 158,68 L 68,68 L 68,158" stroke="url(#pb-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 354,68 L 444,68 L 444,158" stroke="url(#pb-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 68,354 L 68,444 L 158,444" stroke="url(#pb-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 444,354 L 444,444 L 354,444" stroke="url(#pb-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="444" cy="68" r="36" fill="#F97316" />
+      <path d="M 192,192 L 352,256 L 288,288 L 352,416 L 416,352 L 288,288 L 256,352 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
+    </svg>
+    <div class="logo">PixelBrief</div>
+  </div>
+  
+  <button id="launch-btn" class="btn">Toggle Overlay</button>
+
+  <div class="shortcuts">
+    <h3>Keyboard Shortcuts</h3>
+    <div class="shortcut-row">
+      <span>Toggle Overlay</span>
+      <span class="key">Ctrl+Shift+M</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Select/Move</span>
+      <span class="key">V</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Rectangle</span>
+      <span class="key">R</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Ellipse</span>
+      <span class="key">O</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Arrow</span>
+      <span class="key">A</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Pen tool</span>
+      <span class="key">P</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Comment Pin</span>
+      <span class="key">N</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Text Label</span>
+      <span class="key">T</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Hide/Show</span>
+      <span class="key">H</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Undo</span>
+      <span class="key">Ctrl+Z</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Redo</span>
+      <span class="key">Ctrl+Shift+Z</span>
+    </div>
+    <div class="shortcut-row">
+      <span>Delete Selected</span>
+      <span class="key">Backspace</span>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('launch-btn').addEventListener('click', async () => {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (tab?.id) {
+        chrome.tabs.sendMessage(tab.id, { action: 'TOGGLE_OVERLAY' }).catch(() => {
+          alert("Could not load overlay on this page. Try reloading the page first.");
+        });
+      }
+      window.close();
+    });
+  </script>
+</body>
+</html>

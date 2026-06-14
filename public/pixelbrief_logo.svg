@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Premium Blue-to-Purple Gradient for Brackets -->
+    <linearGradient id="bracket-grad" x1="68" y1="68" x2="444" y2="444" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#A855F7" />
+    </linearGradient>
+  </defs>
+
+  <!-- 4 Corner Selection Brackets (Annotation Target - Zoomed In) -->
+  <path d="M 158,68 L 68,68 L 68,158" stroke="url(#bracket-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 354,68 L 444,68 L 444,158" stroke="url(#bracket-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 68,354 L 68,444 L 158,444" stroke="url(#bracket-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 444,354 L 444,444 L 354,444" stroke="url(#bracket-grad)" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Orange Annotation Highlight Dot at Top-Right Vertex (Zoomed & Offset) -->
+  <circle cx="444" cy="68" r="36" fill="#F97316" />
+
+  <!-- Selection Cursor (Perfect Symmetry, Snapped to 16x16 Grid) -->
+  <path d="M 192,192 L 352,256 L 288,288 L 352,416 L 416,352 L 288,288 L 256,352 Z" 
+        fill="#FFFFFF" 
+        stroke="#0F172A" 
+        stroke-width="16" 
+        stroke-linejoin="round" 
+        stroke-linecap="round" />
+</svg>
