@@ -35,12 +35,6 @@
       "js": ["content.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["content.css"],
-      "matches": ["http://*/*", "https://*/*"]
-    }
-  ],
   "commands": {
     "toggle-overlay": {
       "suggested_key": {

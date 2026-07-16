@@ -1,7 +1,8 @@
 import { createRoot, Root } from 'react-dom/client';
 import App from '../overlay/App';
 import { useStore } from '../overlay/store';
-import './content.css';
+// @ts-ignore
+import contentStyles from './content.css?inline';
 
 const ROOT_ID = 'pixelbrief-root';
 let reactRoot: Root | null = null;
@@ -28,11 +29,10 @@ function mountOverlay() {
   // Attach shadow DOM to isolate page styling from extension styling
   const shadowRoot = container.attachShadow({ mode: 'open' });
 
-  // Load Tailwind styles from content.css
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL('content.css');
-  shadowRoot.appendChild(link);
+  // Load Tailwind styles inline to bypass strict CSP blocks on some websites
+  const style = document.createElement('style');
+  style.textContent = contentStyles;
+  shadowRoot.appendChild(style);
 
   // App mount target div
   const appContainer = document.createElement('div');
