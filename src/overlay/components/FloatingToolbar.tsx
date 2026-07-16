@@ -22,7 +22,9 @@ import {
   Archive,
   Download,
   Upload,
-  RotateCcw
+  RotateCcw,
+  ChevronsLeft,
+  ChevronsRight
 } from 'lucide-react';
 import { useStore } from '../store';
 import { ColorPicker } from './ColorPicker';
@@ -92,6 +94,7 @@ export const FloatingToolbar: React.FC = () => {
   // Secondary CTA States
   const [copied, setCopied] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Sync lastDrawingTool and lastShapeTool with activeTool if activeTool is not select
@@ -244,7 +247,7 @@ export const FloatingToolbar: React.FC = () => {
 
   // Handle Dragging
   const handleMouseDown = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('.drag-handle')) {
+    if (isCollapsed || (e.target as HTMLElement).closest('.drag-handle')) {
       setIsDragging(true);
       dragStartOffset.current = {
         x: e.clientX - position.x,
@@ -258,7 +261,7 @@ export const FloatingToolbar: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
       
-      const toolbarWidth = isCompact ? 340 : 480;
+      const toolbarWidth = isCollapsed ? 42 : (isCompact ? 340 : 480);
       const newX = Math.max(10, Math.min(window.innerWidth - toolbarWidth - 10, e.clientX - dragStartOffset.current.x));
       const newY = Math.max(10, Math.min(window.innerHeight - 80, e.clientY - dragStartOffset.current.y));
       
@@ -278,7 +281,7 @@ export const FloatingToolbar: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, isCompact]);
+  }, [isDragging, isCompact, isCollapsed]);
 
   // Actions implementations copied/adapted from SidePanel
   const handleCopyPrompt = () => {
@@ -437,6 +440,28 @@ export const FloatingToolbar: React.FC = () => {
   const ShapeIcon = lastShapeTool === 'rect' ? Square : Circle;
   const isShapeActive = activeTool === 'rect' || activeTool === 'ellipse';
 
+  if (isCollapsed) {
+    return (
+      <div
+        ref={toolbarRef}
+        style={{ top: `${position.y}px`, left: `${position.x}px` }}
+        onMouseDown={handleMouseDown}
+        className="fixed flex items-center justify-center bg-[rgba(255,255,255,0.72)] text-[#1d1d1f] w-[42px] h-[42px] rounded-full shadow-lg border border-[rgba(0,0,0,0.08)] z-[2147483647] select-none pointer-events-auto cursor-grab active:cursor-grabbing hover:bg-[rgba(255,255,255,0.85)] hover:scale-105 active:scale-95 transition-all duration-150 backdrop-blur-[20px] saturate-[1.2]"
+        title="Drag to move. Click to expand toolbar."
+      >
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCollapsed(false);
+          }}
+          className="w-full h-full flex items-center justify-center text-[#515154] hover:text-[#1d1d1f] rounded-full"
+        >
+          <ChevronsRight size={18} />
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={toolbarRef}
@@ -457,6 +482,15 @@ export const FloatingToolbar: React.FC = () => {
       <div className="drag-handle cursor-grab active:cursor-grabbing px-1.5 text-zinc-400 hover:text-zinc-600 flex-shrink-0">
         <GripVertical size={16} />
       </div>
+
+      {/* Collapse Button */}
+      <button
+        title="Collapse Toolbar"
+        onClick={() => setIsCollapsed(true)}
+        className="w-[28px] h-[28px] flex items-center justify-center text-[#515154] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#1d1d1f] rounded-[6px] transition-colors duration-150 mr-1 flex-shrink-0"
+      >
+        <ChevronsLeft size={16} />
+      </button>
 
       {/* Tools Group */}
       <div className="flex items-center space-x-0.5 border-r border-[rgba(0,0,0,0.08)] pr-1.5 mr-1.5 flex-shrink-0">
