@@ -227,7 +227,7 @@ export const SidePanel: React.FC = () => {
 
   return (
     <div
-      className={`fixed right-0 top-0 h-full w-[460px] bg-[var(--bg-glass-strong)] text-[var(--text-primary)] border-l border-[var(--border-subtle)] flex flex-col z-[2147483645] pointer-events-auto backdrop-blur-[24px] saturate-[1.2] ${
+      className={`fixed right-0 top-0 h-full w-[460px] bg-[rgba(255,255,255,0.88)] text-[#1d1d1f] border-l border-[rgba(0,0,0,0.08)] flex flex-col z-[2147483645] pointer-events-auto backdrop-blur-[24px] saturate-[1.2] ${
         mounted ? 'transition-transform duration-300' : ''
       } ${
         sidebarOpen ? 'translate-x-0' : 'translate-x-full'
@@ -235,7 +235,7 @@ export const SidePanel: React.FC = () => {
       style={{ boxShadow: 'none' }}
     >
       {/* Header */}
-      <div className="h-[52px] px-4 border-b border-[var(--border-subtle)] bg-transparent flex items-center justify-between flex-shrink-0">
+      <div className="h-[52px] px-4 border-b border-[rgba(0,0,0,0.08)] bg-transparent flex items-center justify-between flex-shrink-0">
         <div className="flex items-center space-x-2">
           <svg width="16" height="16" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
             <defs>
@@ -251,14 +251,14 @@ export const SidePanel: React.FC = () => {
             <circle cx="444" cy="68" r="36" fill="#F97316" />
             <path d="M 192,192 L 352,256 L 288,288 L 352,416 L 416,352 L 288,288 L 256,352 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
           </svg>
-          <h2 className="text-[14px] font-semibold text-[var(--text-primary)] tracking-tight">PixelBrief List</h2>
-          <span className="bg-[var(--bg-control)] text-[var(--text-secondary)] text-[10px] font-semibold px-2 py-0.5 rounded-[4px] font-sans">
+          <h2 className="text-[14px] font-semibold text-[#1d1d1f] tracking-tight">PixelBrief List</h2>
+          <span className="bg-[rgba(0,0,0,0.04)] text-[#515154] text-[10px] font-semibold px-2 py-0.5 rounded-[4px] font-sans">
             {annotations.length}
           </span>
         </div>
         <button
           onClick={() => setSidebarOpen(false)}
-          className="p-1.5 hover:bg-[var(--bg-control-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded-md transition-all duration-150"
+          className="p-1.5 hover:bg-[rgba(0,0,0,0.05)] text-[#515154] hover:text-[#1d1d1f] rounded-md transition-all duration-150"
         >
           <X size={16} />
         </button>
@@ -268,7 +268,7 @@ export const SidePanel: React.FC = () => {
       <div className="flex-1 overflow-y-auto p-[14px] space-y-[12px] bg-transparent">
         {annotations.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center py-20 px-6 text-center select-none bg-transparent">
-            <div className="w-10 h-10 rounded-lg border border-[var(--border-subtle)] flex items-center justify-center mb-4 bg-white/50">
+            <div className="w-10 h-10 rounded-lg border border-[rgba(0,0,0,0.08)] flex items-center justify-center mb-4 bg-white/50">
               <svg width="18" height="18" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="pb-empty-grad" x1="48" y1="48" x2="48" y2="464" gradientUnits="userSpaceOnUse">
@@ -284,8 +284,8 @@ export const SidePanel: React.FC = () => {
                 <path d="M 192,192 L 352,256 L 288,288 L 352,416 L 416,352 L 288,288 L 256,352 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
               </svg>
             </div>
-            <p className="text-[15px] font-semibold text-[var(--text-primary)]">No annotations yet</p>
-            <p className="text-[13px] text-[var(--text-secondary)] max-w-[300px] leading-relaxed mt-1.5">
+            <p className="text-[15px] font-semibold text-[#1d1d1f]">No annotations yet</p>
+            <p className="text-[13px] text-[#515154] max-w-[300px] leading-relaxed mt-1.5">
               Select a drawing tool from the floating toolbar to place notes on the page.
             </p>
           </div>
@@ -303,15 +303,15 @@ export const SidePanel: React.FC = () => {
                   onClick={() => setSelectedId(ann.id)}
                   className={`p-3 rounded-[12px] border text-left transition-all duration-150 cursor-pointer ${
                     isSelected 
-                      ? 'bg-white border-[var(--accent)] shadow-[0_2px_8px_rgba(0,102,204,0.06)]' 
-                      : 'bg-[rgba(255,255,255,0.4)] border-[var(--border-subtle)] hover:bg-[rgba(255,255,255,0.65)] hover:border-[var(--border-medium)]'
+                      ? 'bg-white border-[#0066cc] shadow-[0_2px_8px_rgba(0,102,204,0.06)]' 
+                      : 'bg-[rgba(255,255,255,0.4)] border-[rgba(0,0,0,0.08)] hover:bg-[rgba(255,255,255,0.65)] hover:border-[rgba(0,0,0,0.12)]'
                   }`}
                   style={isSelected ? { boxShadow: '0 0 0 1px rgba(0,102,204,0.08)' } : undefined}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-2">
                       {getToolIcon(ann.type)}
-                      <span className="text-[12px] font-semibold text-[var(--text-primary)]">
+                      <span className="text-[12px] font-semibold text-[#1d1d1f]">
                         {getToolName(ann.type)} {ann.type === 'pin' && `#${ann.number}`}
                       </span>
                       {/* Color swatch dot */}
@@ -328,7 +328,7 @@ export const SidePanel: React.FC = () => {
                           e.stopPropagation();
                           handleFocusAnnotation(ann);
                         }}
-                        className="p-1 hover:bg-[var(--bg-control-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded transition-colors"
+                        className="p-1 hover:bg-[rgba(0,0,0,0.05)] text-[#515154] hover:text-[#1d1d1f] rounded transition-colors"
                       >
                         <Focus size={13} />
                       </button>
@@ -338,7 +338,7 @@ export const SidePanel: React.FC = () => {
                           e.stopPropagation();
                           deleteAnnotation(ann.id);
                         }}
-                        className="p-1 hover:bg-[var(--bg-control-hover)] text-[var(--text-secondary)] hover:text-[var(--danger)] rounded transition-colors"
+                        className="p-1 hover:bg-[rgba(0,0,0,0.05)] text-[#515154] hover:text-[#ff3b30] rounded transition-colors"
                       >
                         <Trash2 size={13} />
                       </button>
@@ -347,7 +347,7 @@ export const SidePanel: React.FC = () => {
 
                   {/* Comment Editor */}
                   {ann.type === 'text' && (
-                    <div className="text-xs text-[var(--text-primary)] font-medium px-[10px] py-[9px] bg-white rounded-[6px] border border-[var(--border-subtle)] select-all font-mono break-all leading-relaxed mb-2">
+                    <div className="text-xs text-[#1d1d1f] font-medium px-[10px] py-[9px] bg-white rounded-[6px] border border-[rgba(0,0,0,0.08)] select-all font-mono break-all leading-relaxed mb-2">
                       {ann.text}
                     </div>
                   )}
@@ -358,10 +358,10 @@ export const SidePanel: React.FC = () => {
                     onKeyDown={(e) => e.stopPropagation()}
                     onPointerDown={(e) => e.stopPropagation()}
                     onChange={(e) => useStore.getState().updateAnnotation(ann.id, { comment: e.target.value })}
-                    className="w-full bg-white border border-[var(--border-subtle)] rounded-[6px] text-[var(--text-primary)] placeholder-[#6B7280] py-[9px] px-[10px] min-h-[44px] text-[12px] transition-all duration-150 resize-none outline-none hover:border-[var(--border-medium)] focus:border-[var(--accent)] focus:shadow-[0_0_0_2px_rgba(0,102,204,0.08)] leading-relaxed"
+                    className="w-full bg-white border border-[rgba(0,0,0,0.08)] rounded-[6px] text-[#1d1d1f] placeholder-[#6B7280] py-[9px] px-[10px] min-h-[44px] text-[12px] transition-all duration-150 resize-none outline-none hover:border-[rgba(0,0,0,0.12)] focus:border-[#0066cc] focus:shadow-[0_0_0_2px_rgba(0,102,204,0.08)] leading-relaxed"
                   />
                   
-                  <div className="text-[11px] text-[var(--text-tertiary)] mt-[10px] flex justify-between items-center font-sans">
+                  <div className="text-[11px] text-[#86868b] mt-[10px] flex justify-between items-center font-sans">
                     <span>
                       X: {Math.round(ann.x)}, Y: {Math.round(ann.y)}
                     </span>
@@ -376,17 +376,17 @@ export const SidePanel: React.FC = () => {
       </div>
 
       {/* Footer / Actions */}
-      <div className="p-4 border-t border-[var(--border-subtle)] bg-transparent space-y-[10px] flex-shrink-0">
+      <div className="p-4 border-t border-[rgba(0,0,0,0.08)] bg-transparent space-y-[10px] flex-shrink-0">
         {/* Copy AI Prompt CTA */}
         <button
           onClick={handleCopyPrompt}
           disabled={annotations.length === 0}
           className={`w-full h-[38px] flex items-center justify-center space-x-2 rounded-[6px] text-xs font-semibold text-white transition-all duration-150 active:scale-[0.98] border-none ${
             annotations.length === 0
-              ? 'bg-[var(--bg-control)] text-[var(--text-tertiary)] opacity-50 cursor-not-allowed'
+              ? 'bg-[rgba(0,0,0,0.04)] text-[#86868b] opacity-50 cursor-not-allowed'
               : copied
                 ? 'bg-[#34c759] hover:bg-[#2db04d] cursor-pointer'
-                : 'bg-[var(--accent)] hover:bg-[var(--accent-hover)] cursor-pointer shadow-sm'
+                : 'bg-[#0066cc] hover:bg-[#0055aa] cursor-pointer shadow-sm'
           }`}
         >
           {copied ? (
@@ -408,8 +408,8 @@ export const SidePanel: React.FC = () => {
           disabled={annotations.length === 0 || isExporting}
           className={`w-full h-[36px] flex items-center justify-center space-x-2 rounded-[6px] text-xs font-semibold border transition-all duration-150 active:scale-[0.98] ${
             annotations.length === 0 || isExporting
-              ? 'bg-[var(--bg-control)] border-[var(--border-subtle)] text-[var(--text-tertiary)] opacity-50 cursor-not-allowed'
-              : 'bg-[rgba(255,255,255,0.6)] border-[var(--border-subtle)] hover:bg-[var(--bg-control-hover)] text-[var(--text-primary)] cursor-pointer shadow-sm'
+              ? 'bg-[rgba(0,0,0,0.04)] border-[rgba(0,0,0,0.08)] text-[#86868b] opacity-50 cursor-not-allowed'
+              : 'bg-[rgba(255,255,255,0.6)] border-[rgba(0,0,0,0.08)] hover:bg-[rgba(0,0,0,0.05)] text-[#1d1d1f] cursor-pointer shadow-sm'
           }`}
         >
           {isExporting ? (
@@ -430,7 +430,7 @@ export const SidePanel: React.FC = () => {
           <button
             onClick={handleDownloadPrompt}
             disabled={annotations.length === 0}
-            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[5px] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[rgba(0,0,0,0.08)] text-[#515154] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#1d1d1f] rounded-[5px] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Download size={11} />
             <span>prompt.md</span>
@@ -439,7 +439,7 @@ export const SidePanel: React.FC = () => {
           <button
             onClick={handleExportJson}
             disabled={annotations.length === 0}
-            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[5px] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[rgba(0,0,0,0.08)] text-[#515154] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#1d1d1f] rounded-[5px] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <Download size={11} />
             <span>annotations.json</span>
@@ -447,7 +447,7 @@ export const SidePanel: React.FC = () => {
 
           <button
             onClick={handleImportJsonClick}
-            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[5px] transition-colors col-span-2"
+            className="flex items-center justify-center space-x-1.5 h-[32px] bg-[rgba(255,255,255,0.6)] border border-[rgba(0,0,0,0.08)] text-[#515154] hover:bg-[rgba(0,0,0,0.05)] hover:text-[#1d1d1f] rounded-[5px] transition-colors col-span-2"
           >
             <Upload size={11} />
             <span>Import JSON</span>
@@ -465,7 +465,7 @@ export const SidePanel: React.FC = () => {
         {annotations.length > 0 && (
           <button
             onClick={clearAll}
-            className="w-full text-center text-[10px] uppercase font-bold tracking-wider text-[var(--danger)] hover:text-red-600 py-2 transition-all duration-150"
+            className="w-full text-center text-[10px] uppercase font-bold tracking-wider text-[#ff3b30] hover:text-red-600 py-2 transition-all duration-150"
           >
             Clear page annotations
           </button>
