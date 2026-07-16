@@ -198,29 +198,30 @@ export const FloatingToolbar: React.FC = () => {
       }
 
       // Standard tool hotkeys
-      switch (e.key.toLowerCase()) {
-        case 'v':
+      switch (e.key) {
+        case '1':
           setActiveTool('select');
           break;
-        case 'r':
+        case '2':
           setActiveTool('rect');
           break;
-        case 'o':
+        case '3':
           setActiveTool('ellipse');
           break;
-        case 'a':
+        case '4':
           setActiveTool('arrow');
           break;
-        case 'p':
+        case '5':
           setActiveTool('pen');
           break;
-        case 'n':
+        case '6':
           setActiveTool('pin');
           break;
-        case 't':
+        case '7':
           setActiveTool('text');
           break;
         case 'h':
+        case 'H':
           setVisible(!visible);
           break;
       }
@@ -426,13 +427,14 @@ export const FloatingToolbar: React.FC = () => {
 
   const getToolInfo = (tool: ToolType) => {
     switch (tool) {
-      case 'rect': return { icon: Square, label: 'Rectangle (R)' };
-      case 'ellipse': return { icon: Circle, label: 'Ellipse (O)' };
-      case 'arrow': return { icon: ArrowUpRight, label: 'Arrow (A)' };
-      case 'pen': return { icon: Pencil, label: 'Freehand Pen (P)' };
-      case 'pin': return { icon: MapPin, label: 'Comment Pin (N)' };
-      case 'text': return { icon: Type, label: 'Text Label (T)' };
-      default: return { icon: Square, label: 'Rectangle (R)' };
+      case 'select': return { icon: MousePointer, label: 'Select/Move (1)' };
+      case 'rect': return { icon: Square, label: 'Rectangle (2)' };
+      case 'ellipse': return { icon: Circle, label: 'Ellipse (3)' };
+      case 'arrow': return { icon: ArrowUpRight, label: 'Arrow (4)' };
+      case 'pen': return { icon: Pencil, label: 'Freehand Pen (5)' };
+      case 'pin': return { icon: MapPin, label: 'Comment Pin (6)' };
+      case 'text': return { icon: Type, label: 'Text Label (7)' };
+      default: return { icon: Square, label: 'Rectangle (2)' };
     }
   };
 
@@ -496,7 +498,7 @@ export const FloatingToolbar: React.FC = () => {
       <div className="flex items-center space-x-0.5 border-r border-[rgba(0,0,0,0.08)] pr-1.5 mr-1.5 flex-shrink-0">
         {/* Select Tool */}
         <button
-          title="Select/Move (V)"
+          title="Select/Move (1)"
           onClick={() => setActiveTool('select')}
           className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
             activeTool === 'select' 
@@ -529,14 +531,15 @@ export const FloatingToolbar: React.FC = () => {
                   const info = getToolInfo(tool);
                   const isSelected = activeTool === tool;
                   
-                  // Get shortcut letter
+                  // Get shortcut number
                   let shortcut = '';
-                  if (tool === 'rect') shortcut = 'R';
-                  else if (tool === 'ellipse') shortcut = 'O';
-                  else if (tool === 'arrow') shortcut = 'A';
-                  else if (tool === 'pen') shortcut = 'P';
-                  else if (tool === 'pin') shortcut = 'N';
-                  else if (tool === 'text') shortcut = 'T';
+                  if (tool === 'select') shortcut = '1';
+                  else if (tool === 'rect') shortcut = '2';
+                  else if (tool === 'ellipse') shortcut = '3';
+                  else if (tool === 'arrow') shortcut = '4';
+                  else if (tool === 'pen') shortcut = '5';
+                  else if (tool === 'pin') shortcut = '6';
+                  else if (tool === 'text') shortcut = '7';
 
                   return (
                     <button
@@ -575,7 +578,7 @@ export const FloatingToolbar: React.FC = () => {
             {/* Shape Dropdown Trigger */}
             <div className="relative">
               <button
-                title="Shapes (R / O)"
+                title="Shapes (2 / 3)"
                 onClick={() => setShapeDropdownOpen(!shapeDropdownOpen)}
                 className={`w-[46px] h-[36px] flex items-center justify-center space-x-1 rounded-[8px] transition-all duration-150 ${
                   isShapeActive 
@@ -599,7 +602,7 @@ export const FloatingToolbar: React.FC = () => {
                   >
                     <Square size={16} className={activeTool === 'rect' ? 'text-[#1d1d1f]' : 'text-[#515154]'} />
                     <span>Rectangle</span>
-                    <span className="text-[#86868b] text-[12px] ml-auto font-normal">R</span>
+                    <span className="text-[#86868b] text-[12px] ml-auto font-normal">2</span>
                   </button>
                   <button
                     onClick={() => selectShapeTool('ellipse')}
@@ -611,7 +614,7 @@ export const FloatingToolbar: React.FC = () => {
                   >
                     <Circle size={16} className={activeTool === 'ellipse' ? 'text-[#1d1d1f]' : 'text-[#515154]'} />
                     <span>Ellipse</span>
-                    <span className="text-[#86868b] text-[12px] ml-auto font-normal">O</span>
+                    <span className="text-[#86868b] text-[12px] ml-auto font-normal">3</span>
                   </button>
                 </div>
               )}
@@ -619,7 +622,7 @@ export const FloatingToolbar: React.FC = () => {
 
             {/* Arrow */}
             <button
-              title="Arrow (A)"
+              title="Arrow (4)"
               onClick={() => setActiveTool('arrow')}
               className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'arrow' 
@@ -632,7 +635,7 @@ export const FloatingToolbar: React.FC = () => {
 
             {/* Pen */}
             <button
-              title="Freehand Pen (P)"
+              title="Freehand Pen (5)"
               onClick={() => setActiveTool('pen')}
               className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'pen' 
@@ -645,7 +648,7 @@ export const FloatingToolbar: React.FC = () => {
 
             {/* Pin */}
             <button
-              title="Comment Pin (N)"
+              title="Comment Pin (6)"
               onClick={() => setActiveTool('pin')}
               className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'pin' 
@@ -658,7 +661,7 @@ export const FloatingToolbar: React.FC = () => {
 
             {/* Text */}
             <button
-              title="Text Label (T)"
+              title="Text Label (7)"
               onClick={() => setActiveTool('text')}
               className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'text' 
