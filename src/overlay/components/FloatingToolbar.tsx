@@ -442,7 +442,7 @@ export const FloatingToolbar: React.FC = () => {
       ref={toolbarRef}
       style={{ top: `${position.y}px`, left: `${position.x}px`, maxWidth: 'calc(100vw - 24px)' }}
       onMouseDown={handleMouseDown}
-      className="fixed flex items-center bg-[#0B0D12] text-[#E5E7EB] rounded-[6px] shadow-2xl border border-[#242936] p-1.5 z-[2147483647] select-none pointer-events-auto transition-shadow hover:shadow-zinc-950/40 flex-nowrap overflow-visible"
+      className="fixed flex items-center bg-[var(--bg-glass)] text-[var(--text-primary)] rounded-[12px] shadow-lg border border-[var(--border-subtle)] p-1.5 z-[2147483647] select-none pointer-events-auto transition-all duration-200 hover:shadow-xl backdrop-blur-[20px] saturate-[1.2] flex-nowrap overflow-visible"
     >
       {/* Hidden File Input for JSON Import */}
       <input
@@ -454,20 +454,20 @@ export const FloatingToolbar: React.FC = () => {
       />
 
       {/* Drag Handle */}
-      <div className="drag-handle cursor-grab active:cursor-grabbing px-1.5 text-zinc-500 hover:text-zinc-300 flex-shrink-0">
+      <div className="drag-handle cursor-grab active:cursor-grabbing px-1.5 text-zinc-400 hover:text-zinc-600 flex-shrink-0">
         <GripVertical size={16} />
       </div>
 
       {/* Tools Group */}
-      <div className="flex items-center space-x-0.5 border-r border-[#242936] pr-1.5 mr-1.5 flex-shrink-0">
+      <div className="flex items-center space-x-0.5 border-r border-[var(--border-subtle)] pr-1.5 mr-1.5 flex-shrink-0">
         {/* Select Tool */}
         <button
           title="Select/Move (V)"
           onClick={() => setActiveTool('select')}
-          className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+          className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
             activeTool === 'select' 
-              ? 'bg-[#2563EB] text-white shadow-md' 
-              : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+              ? 'bg-[var(--accent)] text-white shadow-sm' 
+              : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
           }`}
         >
           <MousePointer size={16} />
@@ -479,10 +479,10 @@ export const FloatingToolbar: React.FC = () => {
             <button
               title={`Drawing Tools (${getToolInfo(lastDrawingTool).label})`}
               onClick={() => setCompactDropdownOpen(!compactDropdownOpen)}
-              className={`w-[46px] h-[36px] flex items-center justify-center space-x-1 rounded-[6px] transition-all duration-150 ${
+              className={`w-[46px] h-[36px] flex items-center justify-center space-x-1 rounded-[8px] transition-all duration-150 ${
                 activeTool !== 'select'
-                  ? 'bg-[#2563EB] text-white shadow-md' 
-                  : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                  ? 'bg-[var(--accent)] text-white shadow-sm' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               {React.createElement(getToolInfo(activeTool !== 'select' ? activeTool : lastDrawingTool).icon, { size: 16 })}
@@ -490,7 +490,7 @@ export const FloatingToolbar: React.FC = () => {
             </button>
             
             {compactDropdownOpen && (
-              <div className="absolute top-[100%] mt-2 left-0 bg-[#11141A] border border-[#2A3040] rounded-[10px] p-[6px] z-[2147483647] shadow-[0_12px_28px_rgba(0,0,0,0.35)] min-w-[190px] flex flex-col space-y-0.5 animate-in fade-in duration-100">
+              <div className="absolute top-[100%] mt-2 left-0 bg-[var(--bg-glass-strong)] border border-[var(--border-medium)] rounded-[12px] p-[5px] z-[2147483647] shadow-[var(--shadow-popover)] min-w-[190px] flex flex-col space-y-0.5 animate-in fade-in duration-100 backdrop-blur-[12px]">
                 {(['rect', 'ellipse', 'arrow', 'pen', 'pin', 'text'] as ToolType[]).map((tool) => {
                   const info = getToolInfo(tool);
                   const isSelected = activeTool === tool;
@@ -517,17 +517,17 @@ export const FloatingToolbar: React.FC = () => {
                       }}
                       className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left transition-colors duration-150 ${
                         isSelected
-                          ? 'bg-[#172033] text-[#F9FAFB]'
-                          : 'text-[#E5E7EB] hover:bg-[#1B2230] hover:text-[#F9FAFB]'
+                          ? 'bg-[var(--bg-control-pressed)] text-[var(--text-primary)] font-semibold'
+                          : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {React.createElement(info.icon, { 
                         size: 16, 
-                        className: isSelected ? 'text-[#F9FAFB]' : 'text-[#CBD5E1]' 
+                        className: isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]' 
                       })}
                       <span>{info.label.split(' (')[0]}</span>
                       {shortcut && (
-                        <span className="text-[#9CA3AF] text-[12px] ml-auto font-normal">{shortcut}</span>
+                        <span className="text-[var(--text-tertiary)] text-[12px] ml-auto font-normal">{shortcut}</span>
                       )}
                     </button>
                   );
@@ -543,10 +543,10 @@ export const FloatingToolbar: React.FC = () => {
               <button
                 title="Shapes (R / O)"
                 onClick={() => setShapeDropdownOpen(!shapeDropdownOpen)}
-                className={`w-[46px] h-[36px] flex items-center justify-center space-x-1 rounded-[6px] transition-all duration-150 ${
+                className={`w-[46px] h-[36px] flex items-center justify-center space-x-1 rounded-[8px] transition-all duration-150 ${
                   isShapeActive 
-                    ? 'bg-[#2563EB] text-white shadow-md' 
-                    : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                    ? 'bg-[var(--accent)] text-white shadow-sm' 
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {React.createElement(ShapeIcon, { size: 16 })}
@@ -554,30 +554,30 @@ export const FloatingToolbar: React.FC = () => {
               </button>
               
               {shapeDropdownOpen && (
-                <div className="absolute top-[100%] mt-2 left-0 bg-[#11141A] border border-[#2A3040] rounded-[10px] p-[6px] z-[2147483647] shadow-[0_12px_28px_rgba(0,0,0,0.35)] min-w-[190px] flex flex-col space-y-0.5 animate-in fade-in duration-100">
+                <div className="absolute top-[100%] mt-2 left-0 bg-[var(--bg-glass-strong)] border border-[var(--border-medium)] rounded-[12px] p-[5px] z-[2147483647] shadow-[var(--shadow-popover)] min-w-[190px] flex flex-col space-y-0.5 animate-in fade-in duration-100 backdrop-blur-[12px]">
                   <button
                     onClick={() => selectShapeTool('rect')}
                     className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left transition-colors duration-150 ${
                       activeTool === 'rect'
-                        ? 'bg-[#172033] text-[#F9FAFB]'
-                        : 'text-[#E5E7EB] hover:bg-[#1B2230] hover:text-[#F9FAFB]'
+                        ? 'bg-[var(--bg-control-pressed)] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    <Square size={16} className={activeTool === 'rect' ? 'text-[#F9FAFB]' : 'text-[#CBD5E1]'} />
+                    <Square size={16} className={activeTool === 'rect' ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'} />
                     <span>Rectangle</span>
-                    <span className="text-[#9CA3AF] text-[12px] ml-auto font-normal">R</span>
+                    <span className="text-[var(--text-tertiary)] text-[12px] ml-auto font-normal">R</span>
                   </button>
                   <button
                     onClick={() => selectShapeTool('ellipse')}
                     className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left transition-colors duration-150 ${
                       activeTool === 'ellipse'
-                        ? 'bg-[#172033] text-[#F9FAFB]'
-                        : 'text-[#E5E7EB] hover:bg-[#1B2230] hover:text-[#F9FAFB]'
+                        ? 'bg-[var(--bg-control-pressed)] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    <Circle size={16} className={activeTool === 'ellipse' ? 'text-[#F9FAFB]' : 'text-[#CBD5E1]'} />
+                    <Circle size={16} className={activeTool === 'ellipse' ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'} />
                     <span>Ellipse</span>
-                    <span className="text-[#9CA3AF] text-[12px] ml-auto font-normal">O</span>
+                    <span className="text-[var(--text-tertiary)] text-[12px] ml-auto font-normal">O</span>
                   </button>
                 </div>
               )}
@@ -587,10 +587,10 @@ export const FloatingToolbar: React.FC = () => {
             <button
               title="Arrow (A)"
               onClick={() => setActiveTool('arrow')}
-              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'arrow' 
-                  ? 'bg-[#2563EB] text-white shadow-md' 
-                  : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                  ? 'bg-[var(--accent)] text-white shadow-sm' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               <ArrowUpRight size={16} />
@@ -600,10 +600,10 @@ export const FloatingToolbar: React.FC = () => {
             <button
               title="Freehand Pen (P)"
               onClick={() => setActiveTool('pen')}
-              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'pen' 
-                  ? 'bg-[#2563EB] text-white shadow-md' 
-                  : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                  ? 'bg-[var(--accent)] text-white shadow-sm' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               <Pencil size={16} />
@@ -613,10 +613,10 @@ export const FloatingToolbar: React.FC = () => {
             <button
               title="Comment Pin (N)"
               onClick={() => setActiveTool('pin')}
-              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'pin' 
-                  ? 'bg-[#2563EB] text-white shadow-md' 
-                  : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                  ? 'bg-[var(--accent)] text-white shadow-sm' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               <MapPin size={16} />
@@ -626,10 +626,10 @@ export const FloatingToolbar: React.FC = () => {
             <button
               title="Text Label (T)"
               onClick={() => setActiveTool('text')}
-              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+              className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
                 activeTool === 'text' 
-                  ? 'bg-[#2563EB] text-white shadow-md' 
-                  : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                  ? 'bg-[var(--accent)] text-white shadow-sm' 
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               <Type size={16} />
@@ -639,33 +639,33 @@ export const FloatingToolbar: React.FC = () => {
       </div>
 
       {/* Style Popover Button */}
-      <div className="relative border-r border-[#242936] pr-1.5 mr-1.5 flex-shrink-0">
+      <div className="relative border-r border-[var(--border-subtle)] pr-1.5 mr-1.5 flex-shrink-0">
         <button
           title="Annotation Styles"
           onClick={() => setStylePopoverOpen(!stylePopoverOpen)}
-          className={`h-[36px] px-2 flex items-center justify-center space-x-1.5 rounded-[6px] border border-[#2A3040]/80 bg-[#121620]/60 hover:bg-[#171B24] text-[#D1D5DB] transition-all duration-150 ${
-            stylePopoverOpen ? 'border-zinc-700 bg-[#171B24]' : ''
+          className={`h-[36px] px-2 flex items-center justify-center space-x-1.5 rounded-[8px] border border-[var(--border-subtle)] bg-[rgba(255,255,255,0.4)] hover:bg-[var(--bg-control-hover)] text-[var(--text-secondary)] transition-all duration-150 ${
+            stylePopoverOpen ? 'border-[var(--border-medium)] bg-[var(--bg-glass-strong)] text-[var(--text-primary)]' : ''
           }`}
         >
           <span
-            className="w-4 h-4 rounded-full border border-zinc-950 ring-1 ring-zinc-800 flex-shrink-0"
+            className="w-4 h-4 rounded-full border border-[rgba(0,0,0,0.12)] flex-shrink-0"
             style={{ backgroundColor: strokeColor }}
           />
           {!isCompact && (
-            <span className="text-[10px] text-zinc-400 font-mono font-bold">{strokeWidth}px</span>
+            <span className="text-[10px] text-[var(--text-secondary)] font-mono font-bold">{strokeWidth}px</span>
           )}
           <ChevronDown size={10} className="opacity-60" />
         </button>
 
         {stylePopoverOpen && (
-          <div className="absolute top-[100%] mt-2 left-[50%] -translate-x-[50%] bg-[#11141A] border border-[#2A3040] rounded-[10px] p-3 space-y-3.5 z-[2147483647] shadow-[0_12px_28px_rgba(0,0,0,0.35)] w-[280px] max-w-[calc(100vw-24px)] overflow-hidden flex flex-col animate-in fade-in duration-100">
+          <div className="absolute top-[100%] mt-2 left-[50%] -translate-x-[50%] bg-[var(--bg-glass-strong)] border border-[var(--border-medium)] rounded-[12px] p-3 space-y-3.5 z-[2147483647] shadow-[var(--shadow-popover)] w-[280px] max-w-[calc(100vw-24px)] overflow-hidden flex flex-col animate-in fade-in duration-100 backdrop-blur-[12px]">
             <div>
-              <span className="text-[13px] font-semibold text-[#E5E7EB] block mb-2 text-left">Color</span>
+              <span className="text-[13px] font-semibold text-[var(--text-primary)] block mb-2 text-left">Color</span>
               <ColorPicker selectedColor={strokeColor} onChangeColor={setStrokeColor} />
             </div>
             
-            <div className="border-t border-[#252B38] pt-3">
-              <span className="text-[13px] font-semibold text-[#E5E7EB] block mb-2 text-left">Stroke Width</span>
+            <div className="border-t border-[var(--border-subtle)] pt-3">
+              <span className="text-[13px] font-semibold text-[var(--text-primary)] block mb-2 text-left">Stroke Width</span>
               <div className="flex items-center space-x-2">
                 <input
                   type="range"
@@ -673,21 +673,21 @@ export const FloatingToolbar: React.FC = () => {
                   max="12"
                   value={strokeWidth}
                   onChange={(e) => setStrokeWidth(parseInt(e.target.value))}
-                  className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                  className="w-full h-1 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[var(--accent)]"
                 />
-                <span className="text-xs text-zinc-300 font-mono w-4 font-bold">{strokeWidth}</span>
+                <span className="text-xs text-[var(--text-secondary)] font-mono w-4 font-bold">{strokeWidth}</span>
               </div>
             </div>
 
-            <div className="border-t border-[#252B38] pt-3 flex justify-end">
+            <div className="border-t border-[var(--border-subtle)] pt-3 flex justify-end">
               <button
                 onClick={() => {
                   setStrokeColor('#ef4444');
                   setStrokeWidth(4);
                 }}
-                className="flex items-center space-x-1 px-2.5 py-1.5 text-[11px] font-bold text-[#E5E7EB] hover:text-[#F9FAFB] bg-[#1B2230] border border-[#2A3040] rounded-[6px] transition-colors duration-150 cursor-pointer"
+                className="flex items-center space-x-1 px-2.5 py-1.5 text-[11px] font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-control)] border border-[var(--border-subtle)] rounded-[7px] transition-colors duration-150 cursor-pointer"
               >
-                <RotateCcw size={12} className="text-[#CBD5E1]" />
+                <RotateCcw size={12} className="text-[var(--text-secondary)]" />
                 <span>Reset Style</span>
               </button>
             </div>
@@ -701,7 +701,7 @@ export const FloatingToolbar: React.FC = () => {
         <button
           title="Undo (Ctrl+Z)"
           onClick={undo}
-          className="w-[36px] h-[36px] flex items-center justify-center text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB] rounded-[6px] transition-colors duration-150"
+          className="w-[36px] h-[36px] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[8px] transition-colors duration-150"
         >
           <Undo2 size={16} />
         </button>
@@ -710,7 +710,7 @@ export const FloatingToolbar: React.FC = () => {
         <button
           title="Redo (Ctrl+Shift+Z)"
           onClick={redo}
-          className="w-[36px] h-[36px] flex items-center justify-center text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB] rounded-[6px] transition-colors duration-150"
+          className="w-[36px] h-[36px] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[8px] transition-colors duration-150"
         >
           <Redo2 size={16} />
         </button>
@@ -720,7 +720,7 @@ export const FloatingToolbar: React.FC = () => {
           <button
             title="Delete Selected (Backspace)"
             onClick={() => deleteAnnotation(selectedId)}
-            className="w-[36px] h-[36px] flex items-center justify-center text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-[6px] transition-colors duration-150"
+            className="w-[36px] h-[36px] flex items-center justify-center text-[var(--danger)] hover:bg-red-500/10 rounded-[8px] transition-colors duration-150"
           >
             <Trash2 size={16} />
           </button>
@@ -731,32 +731,32 @@ export const FloatingToolbar: React.FC = () => {
           <button
             title="More Actions"
             onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-            className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 ${
+            className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 ${
               moreMenuOpen
-                ? 'bg-[#171B24] text-white border border-zinc-700'
-                : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+                ? 'bg-[var(--bg-control-pressed)] text-[var(--text-primary)] border border-[var(--border-medium)]'
+                : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
             }`}
           >
             <MoreHorizontal size={16} />
           </button>
 
           {moreMenuOpen && (
-            <div className="absolute top-[100%] mt-2 right-0 bg-[#11141A] border border-[#2A3040] rounded-[10px] p-[6px] space-y-0.5 z-[2147483647] shadow-[0_12px_28px_rgba(0,0,0,0.35)] min-w-[240px] flex flex-col animate-in fade-in duration-100">
+            <div className="absolute top-[100%] mt-2 right-0 bg-[var(--bg-glass-strong)] border border-[var(--border-medium)] rounded-[12px] p-[5px] z-[2147483647] shadow-[var(--shadow-popover)] min-w-[240px] flex flex-col animate-in fade-in duration-100 backdrop-blur-[12px]">
               {/* Hide / Show Annotations */}
               <button
                 onClick={() => {
                   setVisible(!visible);
                   setMoreMenuOpen(false);
                 }}
-                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left text-[#E5E7EB] hover:bg-[#1B2230] hover:text-[#F9FAFB] transition-colors duration-150"
+                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] transition-colors duration-150"
               >
                 {visible ? (
-                  <EyeOff size={16} className="text-[#CBD5E1]" />
+                  <EyeOff size={16} className="text-[var(--text-secondary)]" />
                 ) : (
-                  <Eye size={16} className="text-[#CBD5E1]" />
+                  <Eye size={16} className="text-[var(--text-secondary)]" />
                 )}
                 <span>{visible ? 'Hide Annotations' : 'Show Annotations'}</span>
-                <span className="text-[#9CA3AF] text-[12px] ml-auto font-normal">H</span>
+                <span className="text-[var(--text-tertiary)] text-[12px] ml-auto font-normal">H</span>
               </button>
               
               {/* Clear All */}
@@ -765,25 +765,25 @@ export const FloatingToolbar: React.FC = () => {
                   clearAll();
                   setMoreMenuOpen(false);
                 }}
-                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left text-[#F87171] hover:bg-[#F87171]/12 hover:text-[#FCA5A5] transition-colors duration-150"
+                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none cursor-pointer w-full text-left text-[var(--danger)] hover:bg-red-500/10 transition-colors duration-150"
               >
-                <Eraser size={16} className="text-[#F87171]" />
+                <Eraser size={16} className="text-[var(--danger)]" />
                 <span>Clear All</span>
               </button>
 
-              <div className="h-[1px] bg-[#252B38] my-1.5 mx-1" />
+              <div className="h-[1px] bg-[var(--border-subtle)] my-1.5 mx-1" />
 
               {/* Copy AI Prompt */}
               <button
                 onClick={handleCopyPrompt}
                 disabled={annotations.length === 0}
-                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[#93C5FD] ${
+                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[var(--accent)] ${
                   annotations.length === 0
                     ? 'opacity-40 cursor-not-allowed'
-                    : 'hover:bg-[#3B82F6]/12 cursor-pointer'
+                    : 'hover:bg-[rgba(0,102,204,0.06)] cursor-pointer'
                 }`}
               >
-                <Copy size={16} className="text-[#60A5FA]" />
+                <Copy size={16} className="text-[var(--accent)]" />
                 <span>{copied ? 'Copied Prompt!' : 'Copy AI Prompt'}</span>
               </button>
 
@@ -791,33 +791,33 @@ export const FloatingToolbar: React.FC = () => {
               <button
                 onClick={handleExportBundle}
                 disabled={annotations.length === 0 || isExporting}
-                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[#93C5FD] ${
+                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[var(--accent)] ${
                   (annotations.length === 0 || isExporting)
                     ? 'opacity-40 cursor-not-allowed'
-                    : 'hover:bg-[#3B82F6]/12 cursor-pointer'
+                    : 'hover:bg-[rgba(0,102,204,0.06)] cursor-pointer'
                 }`}
               >
                 {isExporting ? (
-                  <span className="w-[16px] h-[16px] border-2 border-[#60A5FA] border-t-transparent rounded-full animate-spin flex-shrink-0"></span>
+                  <span className="w-[16px] h-[16px] border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin flex-shrink-0"></span>
                 ) : (
-                  <Archive size={16} className="text-[#60A5FA]" />
+                  <Archive size={16} className="text-[var(--accent)]" />
                 )}
                 <span>{isExporting ? 'Exporting...' : 'Export Bundle (ZIP)'}</span>
               </button>
 
-              <div className="h-[1px] bg-[#252B38] my-1.5 mx-1" />
+              <div className="h-[1px] bg-[var(--border-subtle)] my-1.5 mx-1" />
 
               {/* Download prompt.md */}
               <button
                 onClick={handleDownloadPrompt}
                 disabled={annotations.length === 0}
-                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[#93C5FD] ${
+                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[var(--accent)] ${
                   annotations.length === 0
                     ? 'opacity-40 cursor-not-allowed'
-                    : 'hover:bg-[#3B82F6]/12 cursor-pointer'
+                    : 'hover:bg-[rgba(0,102,204,0.06)] cursor-pointer'
                 }`}
               >
-                <Download size={16} className="text-[#60A5FA]" />
+                <Download size={16} className="text-[var(--accent)]" />
                 <span>Download prompt.md</span>
               </button>
 
@@ -825,22 +825,22 @@ export const FloatingToolbar: React.FC = () => {
               <button
                 onClick={handleExportJson}
                 disabled={annotations.length === 0}
-                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[#93C5FD] ${
+                className={`h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left transition-colors duration-150 text-[var(--accent)] ${
                   annotations.length === 0
                     ? 'opacity-40 cursor-not-allowed'
-                    : 'hover:bg-[#3B82F6]/12 cursor-pointer'
+                    : 'hover:bg-[rgba(0,102,204,0.06)] cursor-pointer'
                 }`}
               >
-                <Download size={16} className="text-[#60A5FA]" />
+                <Download size={16} className="text-[var(--accent)]" />
                 <span>Export annotations.json</span>
               </button>
 
               {/* Import JSON */}
               <button
                 onClick={handleImportJsonClick}
-                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left text-[#93C5FD] hover:bg-[#3B82F6]/12 cursor-pointer transition-colors duration-150"
+                className="h-[36px] px-[10px] rounded-[7px] flex items-center gap-[10px] text-[13px] font-medium leading-none w-full text-left text-[var(--accent)] hover:bg-[rgba(0,102,204,0.06)] cursor-pointer transition-colors duration-150"
               >
-                <Upload size={16} className="text-[#60A5FA]" />
+                <Upload size={16} className="text-[var(--accent)]" />
                 <span>Import JSON</span>
               </button>
             </div>
@@ -848,21 +848,21 @@ export const FloatingToolbar: React.FC = () => {
         </div>
 
         {/* Separator */}
-        <div className="h-[20px] w-[1px] bg-[#242936] mx-1 flex-shrink-0" />
+        <div className="h-[20px] w-[1px] bg-[var(--border-subtle)] mx-1 flex-shrink-0" />
 
         {/* Sidebar Toggle */}
         <button
           title="Toggle Sidebar List"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`w-[36px] h-[36px] flex items-center justify-center rounded-[6px] transition-all duration-150 relative flex-shrink-0 ${
+          className={`w-[36px] h-[36px] flex items-center justify-center rounded-[8px] transition-all duration-150 relative flex-shrink-0 ${
             sidebarOpen 
-              ? 'text-blue-500 bg-blue-500/10 hover:bg-blue-500/20' 
-              : 'text-[#7D8594] hover:bg-[#171B24] hover:text-[#E5E7EB]'
+              ? 'text-[var(--accent)] bg-[rgba(0,102,204,0.08)] hover:bg-[rgba(0,102,204,0.14)]' 
+              : 'text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)]'
           }`}
         >
           <PanelRight size={16} />
           {annotations.length > 0 && (
-            <span className="absolute top-1.5 right-1.5 flex h-2 w-2 rounded-full bg-blue-500" />
+            <span className="absolute top-1.5 right-1.5 flex h-2 w-2 rounded-full bg-[var(--accent)]" />
           )}
         </button>
 
@@ -870,7 +870,7 @@ export const FloatingToolbar: React.FC = () => {
         <button
           title="Close Overlay"
           onClick={toggleOverlay}
-          className="w-[36px] h-[36px] flex items-center justify-center text-[#7D8594] hover:bg-[#171B24] hover:text-white rounded-[6px] transition-colors duration-150 ml-0.5 flex-shrink-0"
+          className="w-[36px] h-[36px] flex items-center justify-center text-[var(--text-secondary)] hover:bg-[var(--bg-control-hover)] hover:text-[var(--text-primary)] rounded-[8px] transition-colors duration-150 ml-0.5 flex-shrink-0"
         >
           <X size={16} />
         </button>

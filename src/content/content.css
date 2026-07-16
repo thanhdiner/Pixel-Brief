@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:host, :root {
+  --bg-glass: rgba(255, 255, 255, 0.72);
+  --bg-glass-strong: rgba(255, 255, 255, 0.88);
+  --bg-control-hover: rgba(0, 0, 0, 0.05);
+  --bg-control-pressed: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --text-primary: #1d1d1f;
+  --text-secondary: #515154;
+  --text-tertiary: #86868b;
+  --accent: #0066cc;
+  --accent-hover: #0055aa;
+  --danger: #ff3b30;
+  --ease-out: cubic-bezier(.22, .8, .24, 1);
+}
+
 /* Custom Webkit Scrollbars for Shadow DOM */
 ::-webkit-scrollbar {
   width: 6px;
@@ -11,9 +27,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: rgba(0, 0, 0, 0.25);
 }

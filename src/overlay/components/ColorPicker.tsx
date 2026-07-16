@@ -61,15 +61,15 @@ export const ColorPicker: React.FC<Props> = ({ selectedColor, onChangeColor }) =
             title={preset.name}
             onClick={(e) => { e.stopPropagation(); onChangeColor(preset.value); }}
             onPointerDown={(e) => e.stopPropagation()}
-            className="w-[32px] h-[32px] flex-[0_0_32px] rounded-full relative inline-flex items-center justify-center bg-transparent hover:bg-white/[0.06] transition-all duration-150 cursor-pointer focus:outline-none"
+            className="w-[32px] h-[32px] flex-[0_0_32px] rounded-full relative inline-flex items-center justify-center bg-transparent hover:bg-black/[0.04] transition-all duration-150 cursor-pointer focus:outline-none"
             aria-label={`Select ${preset.name}`}
           >
             {isSelected && (
-              <span className="absolute w-[28px] h-[28px] rounded-full border-2 border-white/90 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
+              <span className="absolute w-[28px] h-[28px] rounded-full border-2 border-zinc-400 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
             )}
             <span
               className="w-[18px] h-[18px] rounded-full flex-shrink-0 relative z-10"
-              style={{ backgroundColor: preset.value, boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.16)' }}
+              style={{ backgroundColor: preset.value, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.12)' }}
             />
           </button>
         );
@@ -86,10 +86,10 @@ export const ColorPicker: React.FC<Props> = ({ selectedColor, onChangeColor }) =
         aria-label="Choose custom color"
         onPointerDown={(e) => e.stopPropagation()}
         onClick={(e) => e.stopPropagation()}
-        className="w-[32px] h-[32px] flex-[0_0_32px] rounded-full relative inline-flex items-center justify-center bg-transparent hover:bg-white/[0.06] transition-all duration-150 cursor-pointer"
+        className="w-[32px] h-[32px] flex-[0_0_32px] rounded-full relative inline-flex items-center justify-center bg-transparent hover:bg-black/[0.04] transition-all duration-150 cursor-pointer"
       >
         {isCustomSelected && (
-          <span className="absolute w-[28px] h-[28px] rounded-full border-2 border-white/90 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
+          <span className="absolute w-[28px] h-[28px] rounded-full border-2 border-zinc-400 pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
         )}
         <span
           className="w-[18px] h-[18px] rounded-full flex-shrink-0 relative z-10"
@@ -97,7 +97,7 @@ export const ColorPicker: React.FC<Props> = ({ selectedColor, onChangeColor }) =
             background: isCustomSelected
               ? customColor
               : 'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)',
-            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.16)'
+            boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.12)'
           }}
         />
         <input
