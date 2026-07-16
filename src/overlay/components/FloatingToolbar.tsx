@@ -179,8 +179,15 @@ export const FloatingToolbar: React.FC = () => {
         return;
       }
 
-      // Backspace / Delete: delete selected annotation
-      if ((e.key === 'Backspace' || e.key === 'Delete') && selectedId) {
+      // Delete key: Clear All annotations
+      if (e.key === 'Delete') {
+        clearAll();
+        e.preventDefault();
+        return;
+      }
+
+      // Backspace: delete selected annotation
+      if (e.key === 'Backspace' && selectedId) {
         deleteAnnotation(selectedId);
         e.preventDefault();
         return;
@@ -806,6 +813,7 @@ export const FloatingToolbar: React.FC = () => {
               >
                 <Eraser size={16} className="text-[#ff3b30]" />
                 <span>Clear All</span>
+                <span className="text-[#ff3b30]/65 text-[12px] ml-auto font-normal">Del</span>
               </button>
 
               <div className="h-[1px] bg-[rgba(0,0,0,0.08)] my-1.5 mx-1" />
